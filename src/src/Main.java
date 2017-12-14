@@ -2,6 +2,7 @@ package src;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 import javax.swing.JOptionPane;
 
 public class Main extends javax.swing.JFrame {
@@ -15,7 +16,7 @@ public class Main extends javax.swing.JFrame {
         li=list.listIterator();
         li.add(new Task("adgadg","dsdgsdgsg"));
         li.add(new Task("dgdgdgdg","yoyoyoyoy"));
-        cTask=0;
+        cTask=1;
         tTask=2;
         update();
     }
@@ -50,8 +51,8 @@ public class Main extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        before = new javax.swing.JMenuItem();
+        after = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -134,21 +135,21 @@ public class Main extends javax.swing.JFrame {
 
         jMenu3.setText("Insert");
 
-        jMenuItem7.setText("Before Current Task");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        before.setText("Before Current Task");
+        before.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                beforeActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem7);
+        jMenu3.add(before);
 
-        jMenuItem8.setText("After Current Task");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        after.setText("After Current Task");
+        after.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                afterActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem8);
+        jMenu3.add(after);
 
         jMenuBar1.add(jMenu3);
 
@@ -218,7 +219,7 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void afterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_afterActionPerformed
         t=new Task(name.getText(),description.getText());
         if(!t.validate())
         {
@@ -232,7 +233,7 @@ public class Main extends javax.swing.JFrame {
         tTask++;
         update();
         
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_afterActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         System.exit(0);
@@ -250,16 +251,16 @@ public class Main extends javax.swing.JFrame {
         if(cTask==1)return;
         while(li.hasPrevious())li.previous();
         t=li.next();
-        cTask=0;
+        cTask=1;
         update();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if(cTask==tTask)return;
-        cTask++;
         li.next();
         li.next();
         t=li.previous();
+        cTask++;
         update();
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -272,7 +273,7 @@ public class Main extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void beforeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beforeActionPerformed
         t=new Task(name.getText(),description.getText());
         if(!t.validate())
         {
@@ -282,7 +283,7 @@ public class Main extends javax.swing.JFrame {
         li.add(t);
         tTask++;
         update();
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_beforeActionPerformed
     private void update()
     {
         cTaskText.setText("Current Task: "+ cTask);
@@ -329,6 +330,8 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem after;
+    private javax.swing.JMenuItem before;
     private javax.swing.JLabel cTaskText;
     private javax.swing.JTextArea description;
     private javax.swing.JButton jButton1;
@@ -347,8 +350,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField name;
     private javax.swing.JLabel tTaskText;
