@@ -16,8 +16,10 @@ public class Main extends javax.swing.JFrame {
         li=list.listIterator();
         li.add(new Task("adgadg","dsdgsdgsg"));
         li.add(new Task("dgdgdgdg","yoyoyoyoy"));
+        li.add(new Task("ghhhh","hhhhh"));
+        while(li.hasPrevious())t=li.previous();
         cTask=1;
-        tTask=2;
+        tTask=3;
         update();
     }
 
