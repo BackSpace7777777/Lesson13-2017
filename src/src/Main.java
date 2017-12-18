@@ -14,9 +14,9 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         list=new ArrayList();
         li=list.listIterator();
-        li.add(new Task("adgadg","dsdgsdgsg"));
-        li.add(new Task("dgdgdgdg","yoyoyoyoy"));
-        li.add(new Task("ghhhh","hhhhh"));
+        li.add(new Task("1","dsdgsdgsg"));
+        li.add(new Task("2","yoyoyoyoy"));
+        li.add(new Task("3","hhhhh"));
         while(li.hasPrevious())t=li.previous();
         cTask=1;
         tTask=3;
@@ -125,12 +125,27 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(jMenuItem1);
 
         jMenuItem4.setText("Remove Current Task");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem4);
 
         jMenuItem5.setText("Save To Current Task");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem5);
 
         jMenuItem6.setText("Clear Screen");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem6);
 
         jMenuBar1.add(jMenu2);
@@ -218,7 +233,13 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+        String result="";
+        for(int i=0;i<list.size();i++)
+        {
+            t=list.get(i);
+            result+="Task " + (i+1) + ":\n" + t.toString()+"\n";
+        }
+        JOptionPane.showMessageDialog(this,result);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void afterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_afterActionPerformed
@@ -286,6 +307,42 @@ public class Main extends javax.swing.JFrame {
         tTask++;
         update();
     }//GEN-LAST:event_beforeActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        Task temp=new Task(name.getText(),description.getText());
+        if(temp.validate())li.set(temp);
+        else JOptionPane.showMessageDialog(this, "Must enter valid data");
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        if(tTask==0)return;
+        li.next();
+        li.remove();
+        tTask--;
+        if(tTask==0)
+        {
+            t=null;
+            cTask=0;
+            update();
+            return;
+        }
+        else if(cTask>1)
+        {
+            t=li.previous();
+            cTask--;
+        }
+        else
+        {
+            li.next();
+            t=li.previous();
+        }
+        update();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        description.setText("");
+        name.setText("");
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
     private void update()
     {
         cTaskText.setText("Current Task: "+ cTask);
@@ -294,6 +351,11 @@ public class Main extends javax.swing.JFrame {
         {
             name.setText(t.getName());
             description.setText(t.getDescription());
+        }
+        else
+        {
+            name.setText("");
+            description.setText("");
         }
     }
     /**

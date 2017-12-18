@@ -27,4 +27,8 @@ public class Task {
         if(name==null || desc==null|| name.equals("") || desc.equals(""))return false;
         else return true;
     }
+    public String toString()
+    {
+        return name + " " + desc;
+    }
 }
